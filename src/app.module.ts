@@ -18,6 +18,6 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
     }),
     AuthModule,
-  ]
+  ],
 })
-export class AppModule { }
+export class AppModule {}
