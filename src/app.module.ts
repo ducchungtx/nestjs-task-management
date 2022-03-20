@@ -8,29 +8,26 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [`.env.state.${process.env.STAGE}`],
+      envFilePath: [`.env.state.${process.env.STATE}`],
     }),
     TasksModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        type: 'mysql',
-        autoLoadEntities: true,
-        synchronize: true,
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-      }),
+      useFactory: async (configService: ConfigService) => {
+        return {
+          type: 'mysql',
+          autoLoadEntities: true,
+          synchronize: true,
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_DATABASE'),
+        }
+      },
     }),
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   synchronize: true,
-    //   autoLoadEntities: true,
-    // }),
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
