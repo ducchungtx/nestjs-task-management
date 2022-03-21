@@ -19,7 +19,7 @@ import { UsersRepository } from './users.repository';
         secret: configService.get('JWT_SECRET'),
         signOptions: {
           expiresIn: 3600,
-        }
+        },
       }),
     }),
     TypeOrmModule.forFeature([UsersRepository]),
